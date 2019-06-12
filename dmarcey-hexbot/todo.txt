@@ -4,14 +4,21 @@
     - Unit test for reducer
 - High level Features
     - Show schedule of games, table standings, bracket
-    - Each game gets 10 colors - each color is opportunity for a goal if it is within X distance of team's color (and closest)
+    + Each game gets 10 colors - each color is opportunity for a goal if it is within X distance of team's color (and closest)
     - Tied pool play games end in tie, Tied bracket games have one more goal
     - Simulate individual games, or entire round
 
 
 - Iterations
     + Show a random color swatch on the page
-    - Click button to simulate game between black and white and show score
+    + Click button to simulate game between USA and Thailand and show score
+        + Game component
+            + Team component
+                + Color, Name, goals (if result)
+            + Simulate button (if no result)
+                + COLOR_RECEIVED action - updates game
+            - Show teams even without result (just no score)
+            - Only show goal details if detailed mode.
     - Display full world cup group play schedule, ability to simulate all games
     - Based on game results, update table and determine pool standings
     - Fill out bracket based on pool standings and allow bracket games to be simulated

@@ -10,5 +10,28 @@ export interface IStoreContext {
 }
 
 export interface IState {
-    color?: IColor;
+    game: IGame;
+}
+
+export interface ITeam {
+    color: IColor;
+    name: string;
+}
+
+export interface IGame {
+    id: string;
+    awayTeam: ITeam;
+    homeTeam: ITeam;
+    result?: IGameResult;
+}
+
+export interface IColorMatch {
+    color: IColor;
+    colorMatched?: IColor;
+}
+
+export interface IGameResult {
+    awayGoals: number;
+    homeGoals: number;
+    colors: IColorMatch[];
 }

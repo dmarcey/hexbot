@@ -1,4 +1,4 @@
-import { IColor } from "./Contracts";
+import { IColor, IGame, IGameResult } from "./Contracts";
 
 export function getColorString(color: IColor): string {
     return `rgb(${color.red}, ${color.green}, ${color.blue})`;
@@ -30,4 +30,18 @@ export function closestColor(targetColor: IColor, color1: IColor, color2: IColor
 export function evaluateColors(targetColor: IColor, color1: IColor, color2: IColor, range: number): IColor | undefined {
     const closest = closestColor(targetColor, color1, color2);
     return closest.distance <= range ? closest.color : undefined;
+}
+
+export function simulateGame(game: IGame, colors: IColor[]) {
+    const result: IGameResult = { awayGoals: 0, homeGoals: 0, colors: [] };
+    for (const color of colors) {
+        const evalColor = evaluateColors(color, game.awayTeam.color, game.homeTeam.color, 20);
+        if (evalColor === game.homeTeam.color) {
+            result.homeGoals++;
+        } else if (evalColor === game.awayTeam.color) {
+            result.awayGoals++;
+        }
+        result.colors.push({ color: color, colorMatched: evalColor });
+    }
+    return { ...game, result };
 }

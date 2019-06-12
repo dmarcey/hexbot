@@ -1,4 +1,5 @@
-import { getColorString, hexToColor, colorDistance, closestColor, evaluateColors } from "./util";
+import { getColorString, hexToColor, colorDistance, closestColor, evaluateColors, simulateGame } from "./util";
+import { ITeam, IGame } from "./Contracts";
 
 describe("Utilities", () => {
     describe("getColorString", () => {
@@ -98,6 +99,47 @@ describe("Utilities", () => {
             const expected = color1;
             const actual = evaluateColors(targetColor, color1, color2, 254);
             expect(actual).toBe(expected);
+        });
+    });
+
+    describe("simulateGame", () => {
+        it("color in range of black is goal for team with color black", () => {
+            const colors = [{ red: 10, green: 0, blue: 0 }];
+            const team1: ITeam = { name: "Black", color: { red: 0, green: 0, blue: 0 } };
+            const team2: ITeam = { name: "White", color: { red: 255, green: 255, blue: 255 } };
+            const game: IGame = { awayTeam: team1, homeTeam: team2, id: "0" };
+            const colorMatches = [{ color: { red: 10, green: 0, blue: 0 }, colorMatched: team1.color }];
+            const expected: IGame = { ...game, result: { colors: colorMatches, awayGoals: 1, homeGoals: 0 } };
+            const actual = simulateGame(game, colors);
+            expect(actual).toEqual(expected);
+            expect(actual).not.toBe(game);
+        });
+
+        it("goal for each team", () => {
+            const colors = [{ red: 10, green: 0, blue: 0 }, { red: 255, green: 255, blue: 245 }];
+            const team1: ITeam = { name: "Black", color: { red: 0, green: 0, blue: 0 } };
+            const team2: ITeam = { name: "White", color: { red: 255, green: 255, blue: 255 } };
+            const colorMatches = [
+                { color: { red: 10, green: 0, blue: 0 }, colorMatched: team1.color },
+                { color: { red: 255, green: 255, blue: 245 }, colorMatched: team2.color }
+            ];
+            const game: IGame = { awayTeam: team1, homeTeam: team2, id: "0" };
+            const expected: IGame = { ...game, result: { colors: colorMatches, awayGoals: 1, homeGoals: 1 } };
+            const actual = simulateGame(game, colors);
+            expect(actual).toEqual(expected);
+            expect(actual).not.toBe(game);
+        });
+
+        it("no goals", () => {
+            const colors = [{ red: 150, green: 150, blue: 150 }, { red: 150, green: 150, blue: 150 }];
+            const colorMatches = [{ color: { red: 150, green: 150, blue: 150 } }, { color: { red: 150, green: 150, blue: 150 } }];
+            const team1: ITeam = { name: "Black", color: { red: 0, green: 0, blue: 0 } };
+            const team2: ITeam = { name: "White", color: { red: 255, green: 255, blue: 255 } };
+            const game: IGame = { awayTeam: team1, homeTeam: team2, id: "0" };
+            const expected: IGame = { ...game, result: { colors: colorMatches, awayGoals: 0, homeGoals: 0 } };
+            const actual = simulateGame(game, colors);
+            expect(actual).toEqual(expected);
+            expect(actual).not.toBe(game);
         });
     });
 });

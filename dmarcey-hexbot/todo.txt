@@ -2,11 +2,15 @@
     - Better typing on actions/dispatch
     - Move fetch data action out into actions file
     - Unit test for reducer
+    - Break team data out into a separate file
+
+
 - High level Features
     - Show schedule of games, table standings, bracket
     + Each game gets 10 colors - each color is opportunity for a goal if it is within X distance of team's color (and closest)
     - Tied pool play games end in tie, Tied bracket games have one more goal
     - Simulate individual games, or entire round
+    - Use Team power rankings to influence results
 
 
 - Iterations
@@ -17,7 +21,7 @@
                 + Color, Name, goals (if result)
             + Simulate button (if no result)
                 + COLOR_RECEIVED action - updates game
-            - Show teams even without result (just no score)
+            + Show teams even without result (just no score)
             - Only show goal details if detailed mode.
     - Display full world cup group play schedule, ability to simulate all games
     - Based on game results, update table and determine pool standings

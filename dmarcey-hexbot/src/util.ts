@@ -35,7 +35,7 @@ export function evaluateColors(targetColor: IColor, color1: IColor, color2: ICol
 export function simulateGame(game: IGame, colors: IColor[]) {
     const result: IGameResult = { awayGoals: 0, homeGoals: 0, colors: [] };
     for (const color of colors) {
-        const evalColor = evaluateColors(color, game.awayTeam.color, game.homeTeam.color, 20);
+        const evalColor = evaluateColors(color, game.awayTeam.color, game.homeTeam.color, 16);
         if (evalColor === game.homeTeam.color) {
             result.homeGoals++;
         } else if (evalColor === game.awayTeam.color) {

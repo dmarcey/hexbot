@@ -8,12 +8,14 @@ export interface IGameProps {
 }
 
 const Game = (props: IGameProps) => {
-    if (props.game.result) {
-        return (
-            <div className="flex-column">
-                <GameTeamRow team={props.game.awayTeam} goals={props.game.result.awayGoals} />
-                <GameTeamRow team={props.game.homeTeam} goals={props.game.result.homeGoals} />
-                {props.game.result.colors.map((c, index) => {
+    const awayGoals = props.game.result ? props.game.result.awayGoals : undefined;
+    const homeGoals = props.game.result ? props.game.result.homeGoals : undefined;
+    return (
+        <div className="flex-column">
+            <GameTeamRow team={props.game.awayTeam} goals={awayGoals} />
+            <GameTeamRow team={props.game.homeTeam} goals={homeGoals} />
+            {props.game.result ? (
+                props.game.result.colors.map((c, index) => {
                     if (c.colorMatched) {
                         return (
                             <div className="flex-row" key={index}>
@@ -23,26 +25,28 @@ const Game = (props: IGameProps) => {
                         );
                     }
                     return <></>;
-                })}
-            </div>
-        );
-    } else {
-        return <button onClick={props.simulateGame}>Simulate</button>;
-    }
+                })
+            ) : (
+                <div className="flex-row">
+                    <button onClick={props.simulateGame}>Simulate</button>
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default Game;
 
 export interface IGameTeamRowProps {
     team: ITeam;
-    goals: number;
+    goals?: number;
 }
 
 const GameTeamRow = (props: IGameTeamRowProps) => {
     return (
         <div className="flex-row">
             <ColorSwatch color={props.team.color} />
-            {props.team.name + " " + props.goals}
+            {props.team.name + " " + (props.goals !== undefined ? props.goals : "")}
         </div>
     );
 };

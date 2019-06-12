@@ -14,11 +14,6 @@ const App: React.FC = () => {
         });
     };
 
-    // React.useEffect(() => {
-    //     state.color === undefined && fetchDataAction();
-    // });
-
-    //return state.color ? <ColorSwatch color={state.color} /> : <>"Waiting on color..." </>;
     return <Game game={state.game} simulateGame={fetchDataAction} />;
 };
 

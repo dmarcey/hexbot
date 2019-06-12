@@ -1,9 +1,10 @@
 import React from "react";
 import ColorSwatch from "./components/ColorSwatch";
+import { Store } from "./Store";
 
 const App: React.FC = () => {
-    const color = { red: 49, green: 55, blue: 200 };
-    return <ColorSwatch color={color} />;
+    const store = React.useContext(Store);
+    return <ColorSwatch color={store.color} />;
 };
 
 export default App;

@@ -12,8 +12,3 @@ export interface IStoreContext {
 export interface IState {
     color?: IColor;
 }
-
-export interface IAction {
-    type: string;
-    payload: {};
-}

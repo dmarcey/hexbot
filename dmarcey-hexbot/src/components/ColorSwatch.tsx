@@ -1,5 +1,6 @@
 import * as React from "react";
 import { IColor } from "../Contracts";
+import { getColorString } from "../util";
 
 import "./ColorSwatch.css";
 
@@ -10,9 +11,5 @@ export interface IColorSwatchProps {
 const ColorSwatch = (props: IColorSwatchProps) => {
     return <div className="color-swatch" style={{ backgroundColor: getColorString(props.color) }} />;
 };
-
-function getColorString(color: IColor): string {
-    return `rgb(${color.red}, ${color.green}, ${color.blue})`;
-}
 
 export default ColorSwatch;

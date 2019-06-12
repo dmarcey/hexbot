@@ -1,5 +1,6 @@
 import React from "react";
-import { IColor, IState, IStoreContext } from "./Contracts";
+import { IState, IStoreContext } from "./Contracts";
+import { hexToColor } from "./util";
 
 const initialState: IState = {
     color: undefined
@@ -11,7 +12,7 @@ function reducer(state: IState, action: { type: string; payload: string }): ISta
     switch (action.type) {
         case "COLOR_RECEIVED":
             const colorString = action.payload;
-            return { ...state, color: hexToRgb(colorString) };
+            return { ...state, color: hexToColor(colorString) };
         default:
             return state;
     }
@@ -23,12 +24,3 @@ export const StoreProvider: React.SFC<IStoreProviderProps> = props => {
     const value = { state, dispatch };
     return <Store.Provider value={value}>{props.children}</Store.Provider>;
 };
-
-function hexToRgb(hex: string): IColor {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)!;
-    return {
-        red: parseInt(result[1], 16),
-        green: parseInt(result[2], 16),
-        blue: parseInt(result[3], 16)
-    };
-}

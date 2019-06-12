@@ -4,6 +4,16 @@ export interface IColor {
     blue: number;
 }
 
-export interface IStore {
-    color: IColor;
+export interface IStoreContext {
+    state: IState;
+    dispatch: any;
+}
+
+export interface IState {
+    color?: IColor;
+}
+
+export interface IAction {
+    type: string;
+    payload: {};
 }
